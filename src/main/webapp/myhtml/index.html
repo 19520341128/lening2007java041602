@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../vuejs/vuejs-2.5.16.js"></script>
+    <script type="text/javascript" src="../vuejs/axios-0.18.0.js"></script>
+</head>
+<body>
+<center>
+    <div id="app">
+        <div id="traineelistdiv">
+            <table border="1" rules="all" align="center">
+                <tr>
+                    <td colspan="100">
+                        按照名称：<input type="text" v-model="trainee.tname">
+                        <input type="button" value="检索" @click="getTraineeList()">
+                    </td>
+                </tr>
+                <tr align="center">
+                    <th>学员编号</th>
+                    <th>学员姓名</th>
+                    <th>学员性别</th>
+                    <th>学员年龄</th>
+                    <th>报名日期</th>
+                    <th>在学科目</th>
+                    <th>教练编号</th>
+                    <th>教练姓名</th>
+                    <th>教练生日</th>
+                    <th>教练性别</th>
+                </tr>
+                <tr v-for="t in traineelist" align="center">
+                    <td>{{t.tId}}</td>
+                    <td>{{t.tName}}</td>
+                    <td>{{t.tSex}}</td>
+                    <td>{{t.tAge}}</td>
+                    <td>{{t.tIndate}}</td>
+                    <td>{{t.subjectName==null?"还未学习":t.subjectName}}</td>
+                    <td>{{t.coachBean.cId}}</td>
+                    <td>{{t.coachBean.cName}}</td>
+                    <td>{{t.coachBean.cBirth}}</td>
+                    <td>{{t.coachBean.cSex}}</td>
+                </tr>
+                <tr>
+                    <td colspan="100">
+                        当前{{page.currentPage}}/{{page.pageCount}}页;
+                        <button @click="paging(1)">首页</button>
+                        <button @click="paging(page.previousPage)">上一页</button>
+                        <button @click="paging(page.nextPage)">下一页</button>
+                        <button @click="paging(page.pageCount)">尾页</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="addrecord">
+            输入学员编号：
+                <input type="number" v-model="traineeId">
+            <button @click="According()">添加学车记录</button>
+        </div>
+        <div id="div" style="display: none">
+            <table border="1" rules="all" style="color: aqua">
+                <tr>
+                    <td>学员编号</td>
+                    <td align="center">
+                        {{traineeId}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>学习科目</td>
+                    <td align="center">
+                        {{subjectName}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>学车日期</td>
+                    <td>
+                        <input type="date" v-model="datestr">
+                    </td>
+                </tr>
+                <tr>
+                    <td>学习时长</td>
+                    <td>
+                        <select id="sel">
+                            <option value="4">4</option>
+                            <option value="8">8</option>
+                            <option value="12">12</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button @click="add()">添加</button>
+                        <button @click="shang()">上一级</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="subjectlistdiv" align="center">
+            按科目查看:
+                <select v-model="subjectId">
+                        <option v-for="s in subjectList" :value="s.sId">{{s.sName}}</option>
+                </select>
+            <button @click="toTrainee()">查看学员</button>
+        </div>
+        <!--查看学员列表-->
+        <div id="toTrainee" style="display: none">
+            <table border="1" rules="all" align="center">
+                <tr align="center">
+                    <th>学员编号</th>
+                    <th>学员姓名</th>
+                    <th>学员性别</th>
+                    <th>学员年龄</th>
+                    <th>报名日期</th>
+                </tr>
+                <tr align="center" v-for="t in traineeTo">
+                    <td>{{t.tId}}</td>
+                    <td>{{t.tName}}</td>
+                    <td>{{t.tSex}}</td>
+                    <td>{{t.tAge}}</td>
+                    <td>{{t.tIndate}}</td>
+                </tr>
+            </table>
+            <button @click="shang()">上一级</button>
+        </div>
+    </div>
+</center>
+<script type="text/javascript" src="../myjs/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="vuejs/vuejs-2.5.16.js"></script>
+    <script type="text/javascript" src="vuejs/axios-0.18.0.js"></script>
+</head>
+<body>
+<center>
+    <div id="app">
+        <table>
+            <tr>
+                <td>用户名</td>
+                <td>
+                    <input type="text" v-model="userName">
+                </td>
+            </tr>
+            <tr>
+                <td>密码</td>
+                <td>
+                    <input type="password" v-model="password">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="100">
+                    <button @click="sub()">提交</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</center>
+<script type="text/javascript" src="myjs/login.js"></script>
+</body>
+</html>
